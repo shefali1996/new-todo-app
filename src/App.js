@@ -1,9 +1,11 @@
-import React, { Component} from "react";
-import {BrowserRouter, Switch ,Route} from 'react-router-dom';
-import Home_Page from './components/Home_Page'
-import './App.css';
-import Nav from './components/Nav';
-import Show_Todo from './components/Show_Todo'
+import React, { Component } from "react";
+import { BrowserRouter, Switch, Route } from "react-router-dom";
+import Home_Page from "./components/Home_Page";
+import "./App.css";
+import Nav from "./components/Nav";
+import Show_Todo from "./components/Show_Todo";
+import Delete_Todo from "./components/Delete_Todo";
+
 
 export default class App extends Component {
   constructor(props) {
@@ -32,11 +34,19 @@ export default class App extends Component {
     }
   };
 
-  getValue=(e)=>{
+  getValue = e => {
     this.setState({
-      text:e.target.value
-    })
-  }
+      text: e.target.value
+    });
+  };
+
+  delete = i => {
+    this.setState({
+      arr: this.state.arr.filter((v, index, arr) => {
+        return arr.indexOf(v) !== i;
+      })
+    });
+  };
 
   checked = i => {
     let newState = { ...this.state };
@@ -47,19 +57,35 @@ export default class App extends Component {
   };
 
   render() {
-    console.log(this.state.arr)
+    console.log(this.state.arr);
     return (
       <BrowserRouter>
-        <Nav/>
+        <Nav />
         <Switch>
-          <Home_Page data={this.state} 
-          submit={this.submit}
-          getValue={this.getValue}
-          Route exact path="/" component={Home_Page}/>
-          <Show_Todo data={this.state} 
-          submit={this.submit}
-          checked={this.checked}
-          Route path="/show-todo" component={Show_Todo}
+          <Home_Page
+            data={this.state}
+            submit={this.submit}
+            getValue={this.getValue}
+            Route
+            exact
+            path="/"
+            component={Home_Page}
+          />
+          <Show_Todo
+            data={this.state}
+            submit={this.submit}
+            checked={this.checked}
+            Route
+            path="/show-todo"
+            component={Show_Todo}
+          />
+          <Delete_Todo
+            data={this.state}
+            submit={this.submit}
+            delete={this.delete}
+            Route
+            path="/delete-todo"
+            component={Delete_Todo}
           />
         </Switch>
       </BrowserRouter>
