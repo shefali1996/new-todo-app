@@ -1,0 +1,41 @@
+*{
+margin:0;
+}
+
+.navbar{
+    background-color: rgb(247, 211, 9);
+}
+
+ul{
+    list-style: none;
+    display: flex;
+    justify-content: space-around;
+}
+
+.navbar li{
+    color:white;
+    padding: 1em;
+}
+
+.textboox{
+    width:80%;
+}
+
+.row{
+    display:flex;
+}
+
+.todo{
+    border:1px solid #dadada;
+    display:flex;
+    justify-content: space-evenly;
+}
+
+.container{
+    width:50%;
+    margin:auto;
+}
+
+.checkbox{
+    align-self: center;
+}
