@@ -1,0 +1,78 @@
+*{
+margin:0;
+}
+
+.navbar{
+    background-color: rgb(247, 211, 9);
+}
+
+ul{
+    list-style: none;
+    display: flex;
+    justify-content: space-around;
+}
+
+.navbar li{
+    color:white;
+    padding: 1em;
+}
+
+.textbox{
+    width:80%;
+}
+
+.row{
+    display:flex;
+}
+
+.todo{
+    border:1px solid #dadada;
+    display:flex;
+}
+
+.container{
+    width:50%;
+    padding:1em;
+    margin:auto;
+}
+
+.checkbox{
+    align-self: center;
+}
+
+.val{
+    width:60%;
+    padding: 0.5em;
+}
+
+.checkbox{
+    width:20%;
+}
+
+a{
+    text-decoration: none;
+}
+
+input:focus,
+select:focus,
+textarea:focus,
+button:focus {
+    outline: none;
+}
+
+button{
+  background-color: rgb(126, 179, 240);
+}
+
+.red{
+  border:1px solid red;
+}
+
+.blue{
+  border:1px solid rgb(92, 153, 233);
+}
+
+
+
+
+          
