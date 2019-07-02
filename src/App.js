@@ -1,18 +1,19 @@
 import React, { Component } from "react";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
-import Home_Page from "./components/Home_Page";
+import HomePage from "./components/HomePage";
 import "./App.css";
 import Nav from "./components/Nav";
-import Show_Todo from "./components/Show_Todo";
-import Delete_Todo from "./components/Delete_Todo";
-
+import ShowTodo from "./components/ShowTodo";
+import DeleteTodo from "./components/DeleteTodo";
+import EditTodo from "./components/EditTodo";
 
 export default class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
       arr: [],
-      text: ""
+      text: "",
+      error: ""
     };
   }
 
@@ -30,13 +31,29 @@ export default class App extends Component {
         arr: this.state.arr.concat(todo),
         text: ""
       });
-      console.log(this.state.arr);
+    }
+    if (this.state.text === "") {
+      this.setState({
+        error: "red"
+      });
+    }
+  };
+
+  enterKey = e => {
+    if (e.key === "Enter" && e.target.value !== "") {
+      this.submit();
+    }
+    if (e.key === "Enter" && e.target.value === "") {
+      this.setState({
+        error: "red"
+      });
     }
   };
 
   getValue = e => {
     this.setState({
-      text: e.target.value
+      text: e.target.value,
+      error: "blue"
     });
   };
 
@@ -54,38 +71,82 @@ export default class App extends Component {
     this.setState({
       ...newState
     });
+    console.log(this.state.arr);
   };
 
+  edit = i => {
+    let newState = { ...this.state };
+    newState.arr[i].edit = !this.state.arr[i].edit;
+    this.setState({
+      ...newState
+    });
+  };
+
+  save = i => {
+    let newState = { ...this.state };
+    newState.arr[i].text = newState.arr[i].text1;
+    newState.arr[i].edit = !this.state.arr[i].edit;
+    this.setState({
+      ...newState
+    });
+  };
+
+  getValue1 = (e, i) => {
+    let newState = { ...this.state };
+    newState.arr[i].text1 = e.target.value;
+    this.setState({
+      ...newState
+    });
+  };
+
+
   render() {
-    console.log(this.state.arr);
     return (
       <BrowserRouter>
         <Nav />
         <Switch>
-          <Home_Page
-            data={this.state}
-            submit={this.submit}
-            getValue={this.getValue}
-            Route
+          <Route
+            render={() => (
+              <HomePage
+                data={this.state}
+                submit={this.submit}
+                getValue={this.getValue}
+                enterKey={this.enterKey}
+              />
+            )}
             exact
             path="/"
-            component={Home_Page}
           />
-          <Show_Todo
-            data={this.state}
-            submit={this.submit}
-            checked={this.checked}
-            Route
+          <Route
+            render={() => (
+              <ShowTodo
+                data={this.state}
+                submit={this.submit}
+                checked={this.checked}
+              />
+            )}
             path="/show-todo"
-            component={Show_Todo}
           />
-          <Delete_Todo
-            data={this.state}
-            submit={this.submit}
-            delete={this.delete}
-            Route
+          <Route
+            render={() => (
+              <DeleteTodo
+                data={this.state}
+                submit={this.submit}
+                delete={this.delete}
+              />
+            )}
             path="/delete-todo"
-            component={Delete_Todo}
+          />
+          <Route
+            render={() => (
+              <EditTodo
+                edit={this.edit}
+                getValue1={this.getValue1}
+                save={this.save}
+                data={this.state}
+              />
+            )}
+            path="/edit-todo"
           />
         </Switch>
       </BrowserRouter>
